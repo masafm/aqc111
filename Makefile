@@ -23,7 +23,7 @@ DEST = /lib/modules/$(CURRENT)/kernel/$(MDIR)
 obj-m      :=  $(TARGET).o  
 
 default:
-	make -C $(BUILD_DIR) SUBDIRS=$(PWD) modules
+	make -C $(BUILD_DIR) M=$(shell pwd) modules
 
 $(TARGET).o: $(OBJS)
 	$(LD) $(LD_RFLAG) -r -o $@ $(OBJS)
@@ -32,7 +32,7 @@ install:
 	cp -v $(TARGET).ko $(DEST) && /sbin/depmod -a
 
 clean:
-	$(MAKE) -C $(BUILD_DIR) SUBDIRS=$(PWD) clean
+	$(MAKE) -C $(BUILD_DIR) M=$(shell pwd) clean
 
 .PHONY: modules clean
 
